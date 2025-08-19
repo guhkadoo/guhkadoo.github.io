@@ -5,6 +5,7 @@
     "ng": "npx ng",
     "start": "npx ng serve",
     "build": "npx ng build -c production",
+    "deploy": "bash ./scripts/deploy.sh",
     "watch": "npx ng build --watch --configuration development",
     "test": "npx ng test"
   },
