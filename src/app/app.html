@@ -33,6 +33,8 @@
         </div>
       </div>
       <div class="hero-visual">
+        <span class="orbit orbit-inner" aria-hidden="true"></span>
+        <span class="orbit orbit-outer" aria-hidden="true"></span>
         <app-stellar-object variant="hero" />
       </div>
     </section>
@@ -125,7 +127,7 @@
       </header>
       <div class="skill-grid">
         @for (group of skillGroups; track group.label) {
-          <div>
+          <div class="skill-group">
             <h3>{{ group.label }}</h3>
             <ul class="tags">
               @for (item of group.items; track item) {
@@ -135,11 +137,14 @@
           </div>
         }
       </div>
-      <ul class="extras">
-        @for (item of extras; track item) {
-          <li>{{ item }}</li>
-        }
-      </ul>
+      <div class="extras-block">
+        <h3>Certificações e competições</h3>
+        <ul class="extras">
+          @for (item of extras; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </div>
     </section>
 
     <section id="contato" class="section contact">
@@ -148,12 +153,16 @@
         <h2>Sinal</h2>
         <app-planet name="uranus" />
       </header>
-      <div class="section-body">
-        <a class="email" href="mailto:{{ person.email }}">{{ person.email }}</a>
+      <div class="section-body contact-card">
+        <p class="contact-kicker">Canal aberto</p>
+        <a class="email" href="mailto:{{ person.email }}">
+          <span>{{ person.email }}</span>
+          <span class="email-arrow" aria-hidden="true">→</span>
+        </a>
         <ul class="contact-links">
-          <li><a [href]="person.linkedin" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a [href]="person.github" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a [href]="person.phoneHref">{{ person.phone }}</a></li>
+          <li><a class="btn" [href]="person.linkedin" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a class="btn" [href]="person.github" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a class="btn" [href]="person.phoneHref">{{ person.phone }}</a></li>
         </ul>
       </div>
     </section>
