@@ -88,6 +88,38 @@ nav a:hover::after {
   transform: scaleX(1);
 }
 
+.menu-toggle {
+  display: none;
+  order: 1;
+  place-content: center;
+  gap: 0.4rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-elev) 70%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 1.1rem;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease);
+}
+
+.menu-toggle[aria-expanded='true'] span:first-child {
+  transform: translateY(calc(0.2rem + 0.75px)) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded='true'] span:last-child {
+  transform: translateY(calc(-0.2rem - 0.75px)) rotate(-45deg);
+}
+
 /* Hero */
 
 .hero {
@@ -679,7 +711,56 @@ h3 {
 }
 
 @media (max-width: 860px) {
+  .site-header-inner {
+    gap: 0.75rem;
+  }
+
+  .menu-toggle {
+    display: grid;
+  }
+
   nav {
+    position: absolute;
+    inset: 100% 0 auto;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0.5rem 1.25rem 1.25rem;
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 24px 40px -24px rgb(0 0 0 / 0.35);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity 0.3s ease,
+      transform 0.35s var(--ease),
+      visibility 0s linear 0.35s;
+  }
+
+  nav.open {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.35s var(--ease);
+  }
+
+  nav a {
+    padding-block: 0.95rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--display);
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  nav a:last-child {
+    border-bottom: 0;
+  }
+
+  nav a::after {
     display: none;
   }
 
@@ -746,6 +827,9 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .project,
+  nav,
+  nav.open,
+  .menu-toggle span,
   nav a::after,
   .email-arrow,
   .email span:first-child {

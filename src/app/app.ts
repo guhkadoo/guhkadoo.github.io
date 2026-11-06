@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   education,
   experience,
@@ -19,6 +26,9 @@ import { ThemeService } from './theme';
   imports: [StellarSky, StellarObject, Planet],
   templateUrl: './app.html',
   styleUrl: './app.css',
+  host: {
+    '(document:keydown.escape)': 'closeMenu()',
+  },
 })
 export class App {
   readonly theme = inject(ThemeService);
@@ -29,4 +39,26 @@ export class App {
   readonly projects = projects;
   readonly skillGroups = skillGroups;
   readonly extras = extras;
+
+  readonly menuOpen = signal(false);
+
+  private readonly destroyRef = inject(DestroyRef);
+
+  constructor() {
+    afterNextRender(() => {
+      // Keep in sync with the mobile breakpoint in app.css.
+      const desktop = window.matchMedia('(min-width: 861px)');
+      const onChange = () => desktop.matches && this.closeMenu();
+      desktop.addEventListener('change', onChange);
+      this.destroyRef.onDestroy(() => desktop.removeEventListener('change', onChange));
+    });
+  }
+
+  toggleMenu(): void {
+    this.menuOpen.update((open) => !open);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
+  }
 }

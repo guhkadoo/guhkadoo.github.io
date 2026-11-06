@@ -3,12 +3,24 @@
 
 <header class="site-header">
   <div class="site-header-inner">
-    <a class="mark" href="#inicio">GK</a>
-    <nav aria-label="Seções">
-      <a href="#perfil">Perfil</a>
-      <a href="#trabalho">Trabalho</a>
-      <a href="#projetos">Projetos</a>
-      <a href="#contato">Contato</a>
+    <a class="mark" href="#inicio" (click)="closeMenu()">GK</a>
+    <button
+      type="button"
+      class="menu-toggle"
+      aria-controls="site-nav"
+      [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="menuOpen() ? 'Fechar menu' : 'Abrir menu'"
+      (click)="toggleMenu()"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <nav id="site-nav" aria-label="Seções" [class.open]="menuOpen()">
+      <a href="#perfil" (click)="closeMenu()">Perfil</a>
+      <a href="#trabalho" (click)="closeMenu()">Trabalho</a>
+      <a href="#projetos" (click)="closeMenu()">Projetos</a>
+      <a href="#espectro" (click)="closeMenu()">Espectro</a>
+      <a href="#contato" (click)="closeMenu()">Contato</a>
     </nav>
     <app-stellar-object variant="nav" />
   </div>
