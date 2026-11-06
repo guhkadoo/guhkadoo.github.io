@@ -6,16 +6,20 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { ChaosMap } from './chaos-map';
 import {
+  coreSkills,
   education,
   experience,
   extras,
+  highlights,
   person,
   profile,
   projects,
   skillGroups,
 } from './content';
 import { Planet } from './planet';
+import { Reveal } from './reveal';
 import { StellarObject } from './stellar-object';
 import { StellarSky } from './stellar-sky';
 import { ThemeService } from './theme';
@@ -23,7 +27,7 @@ import { ThemeService } from './theme';
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [StellarSky, StellarObject, Planet],
+  imports: [StellarSky, StellarObject, Planet, Reveal, ChaosMap],
   templateUrl: './app.html',
   styleUrl: './app.css',
   host: {
@@ -33,6 +37,8 @@ import { ThemeService } from './theme';
 export class App {
   readonly theme = inject(ThemeService);
   readonly person = person;
+  readonly highlights = highlights;
+  readonly coreSkills = coreSkills;
   readonly profile = profile;
   readonly education = education;
   readonly experience = experience;

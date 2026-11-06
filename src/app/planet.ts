@@ -272,7 +272,7 @@ export class Planet {
           observer.disconnect();
         }
       },
-      { threshold: 0.4, rootMargin: '0px 0px -12% 0px' },
+      { threshold: 0.4, rootMargin: '0px 0px -4% 0px' },
     );
 
     observer.observe(this.host.nativeElement);

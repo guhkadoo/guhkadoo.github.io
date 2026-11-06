@@ -55,14 +55,14 @@ export function drawSky(
     const y = wrap(cloud.y * height - scrollY + parallaxY * 0.25, height);
     const radius = cloud.r * Math.max(width, height);
     const glow = ctx.createRadialGradient(x, y, 0, x, y, radius);
-    const alpha = 0.015 + collapse * 0.07;
+    const alpha = 0.04 + collapse * 0.045;
     glow.addColorStop(0, `rgba(${cloud.rgb.join(',')}, ${alpha})`);
     glow.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, width, height);
   }
 
-  const starAlpha = 0.06 + collapse * 0.78;
+  const starAlpha = 0.3 + collapse * 0.54;
 
   for (const star of skyStars) {
     const depth = 0.92 + star.z * 0.08;
@@ -71,7 +71,7 @@ export function drawSky(
     const twinkle = reducedMotion ? 1 : 0.72 + 0.28 * Math.sin(time * 0.9 + star.phase);
     const size = (0.5 + star.z * 1.4) * (0.7 + collapse * 0.5);
     ctx.globalAlpha = starAlpha * star.brightness * twinkle;
-    ctx.fillStyle = collapse > 0.45 ? '#e8f0ff' : '#6d7f9a';
+    ctx.fillStyle = collapse > 0.45 ? '#e8f0ff' : '#4a5f86';
     ctx.beginPath();
     ctx.arc(x, y, size, 0, TAU);
     ctx.fill();

@@ -12,6 +12,18 @@ export const person = {
   github: 'https://github.com/guhkadoo',
 };
 
+export interface Highlight {
+  value: string;
+  label: string;
+}
+
+export const highlights: Highlight[] = [
+  { value: '3', label: 'empresas em TI' },
+  { value: '9,13', label: 'CR na UNESP' },
+  { value: '3º', label: 'colocado da turma' },
+  { value: '2×', label: 'Maratona SBC' },
+];
+
 export const profile =
   'Profissional de TI, bacharelando em Ciência da Computação pela UNESP, com experiência em desenvolvimento, sustentação e modernização de sistemas corporativos. Trabalho com aplicações web, integração por APIs, automação de processos e manipulação de dados. Versátil: aprendo a linguagem, o framework e o ambiente que o problema pedir.';
 
@@ -30,6 +42,7 @@ export interface Experience {
   place: string;
   mode: string;
   points: string[];
+  stack: string[];
 }
 
 export const experience: Experience[] = [
@@ -45,6 +58,7 @@ export const experience: Experience[] = [
       'Sistema de monitoramento e gestão de concretagem para construção civil, com MQTT.',
       'Interfaces responsivas e integração de serviços via API, em ritmo Scrum.',
     ],
+    stack: ['Angular', 'TypeScript', 'Django', 'Python', 'MQTT'],
   },
   {
     company: 'NEXUM',
@@ -57,6 +71,7 @@ export const experience: Experience[] = [
       'Automação de fluxos usados por cooperativas de crédito em todo o Brasil.',
       'Integração com sistemas externos e plataformas ECM, incluindo processamento de documentos.',
     ],
+    stack: ['LECOM BPM', 'JavaScript', 'Java', 'Maven'],
   },
   {
     company: 'Câmara Municipal de Bauru',
@@ -69,6 +84,7 @@ export const experience: Experience[] = [
       'Scripts em Bash para tarefas administrativas.',
       'Monitoramento de infraestrutura com Zabbix e Grafana.',
     ],
+    stack: ['Windows', 'Redes', 'Bash', 'Zabbix', 'Grafana'],
   },
 ];
 
@@ -77,6 +93,9 @@ export interface Project {
   kicker: string;
   description: string;
   tags: string[];
+  result?: string;
+  link?: { label: string; href: string };
+  featured?: boolean;
 }
 
 export const projects: Project[] = [
@@ -84,8 +103,10 @@ export const projects: Project[] = [
     title: 'Otimização e caos em FPO',
     kicker: 'Pesquisa premiada',
     description:
-      'Iniciação científica PIBIC/UNESP: implementação em Python do Algoritmo de Otimização e Caos aplicado ao Fluxo de Potência Ótimo Reativo, com redes IEEE e benchmark contra DE, PSO e GA. Melhor IC do curso no XXXVIII CIC da UNESP.',
+      'Iniciação científica PIBIC/UNESP: implementação em Python do Algoritmo de Otimização e Caos aplicado ao Fluxo de Potência Ótimo Reativo, com redes IEEE e benchmark contra DE, PSO e GA.',
     tags: ['Python', 'pandapower', 'scikit-opt'],
+    result: 'Melhor IC do curso no XXXVIII CIC da UNESP',
+    featured: true,
   },
 ];
 
@@ -112,6 +133,8 @@ export const skillGroups: SkillGroup[] = [
     items: ['Git', 'Linux', 'Bash', 'CI/CD', 'Zabbix', 'Grafana', 'Scrum'],
   },
 ];
+
+export const coreSkills = new Set(['TypeScript', 'Python', 'Angular', 'Django', 'APIs', 'Git']);
 
 export const extras = [
   'FCE Cambridge — B2 (177)',
