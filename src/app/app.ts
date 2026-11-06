@@ -2,69 +2,56 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
   afterNextRender,
   inject,
-  signal,
+  viewChild,
 } from '@angular/core';
-import { ChaosMap } from './chaos-map';
-import {
-  coreSkills,
-  education,
-  experience,
-  extras,
-  highlights,
-  person,
-  profile,
-  projects,
-  skillGroups,
-} from './content';
-import { Planet } from './planet';
-import { Reveal } from './reveal';
-import { StellarObject } from './stellar-object';
+import { About } from './about';
+import { Contact } from './contact';
+import { ExperienceSection } from './experience';
+import { Hero } from './hero';
+import { LanguageService } from './i18n';
+import { Projects } from './projects';
+import { SiteHeader } from './site-header';
+import { Skills } from './skills';
 import { StellarSky } from './stellar-sky';
-import { ThemeService } from './theme';
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [StellarSky, StellarObject, Planet, Reveal, ChaosMap],
+  imports: [StellarSky, SiteHeader, Hero, About, ExperienceSection, Projects, Skills, Contact],
   templateUrl: './app.html',
   styleUrl: './app.css',
-  host: {
-    '(document:keydown.escape)': 'closeMenu()',
-  },
 })
 export class App {
-  readonly theme = inject(ThemeService);
-  readonly person = person;
-  readonly highlights = highlights;
-  readonly coreSkills = coreSkills;
-  readonly profile = profile;
-  readonly education = education;
-  readonly experience = experience;
-  readonly projects = projects;
-  readonly skillGroups = skillGroups;
-  readonly extras = extras;
+  readonly i18n = inject(LanguageService);
 
-  readonly menuOpen = signal(false);
-
+  private readonly progress = viewChild.required<ElementRef<HTMLElement>>('progress');
   private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     afterNextRender(() => {
-      // Keep in sync with the mobile breakpoint in app.css.
-      const desktop = window.matchMedia('(min-width: 861px)');
-      const onChange = () => desktop.matches && this.closeMenu();
-      desktop.addEventListener('change', onChange);
-      this.destroyRef.onDestroy(() => desktop.removeEventListener('change', onChange));
+      const bar = this.progress().nativeElement;
+      let frame = 0;
+      const update = () => {
+        frame = 0;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+      };
+      const onScroll = () => {
+        if (!frame) {
+          frame = requestAnimationFrame(update);
+        }
+      };
+      update();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      this.destroyRef.onDestroy(() => {
+        cancelAnimationFrame(frame);
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      });
     });
-  }
-
-  toggleMenu(): void {
-    this.menuOpen.update((open) => !open);
-  }
-
-  closeMenu(): void {
-    this.menuOpen.set(false);
   }
 }

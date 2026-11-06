@@ -1,0 +1,80 @@
+@let h = i18n.t().hero;
+<section class="hero page" id="inicio">
+  <div class="copy">
+    <p class="mono-label kicker"><span class="pulse" aria-hidden="true"></span>{{ h.kicker }}</p>
+    <h1>
+      {{ h.titleLead }}
+      <span class="accent">{{ h.titleAccent }}.</span>
+    </h1>
+    <p class="lede">
+      <span class="lede-arrow" aria-hidden="true">↳</span>
+      <span>
+        {{ h.lede }} <strong>{{ h.ledeStrong }}</strong>.
+        {{ h.ledeRest }}
+      </span>
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="#projetos">
+        {{ h.explore }}
+        <span class="btn-icon" aria-hidden="true">↗</span>
+      </a>
+      <a class="btn ghost" [href]="person.resume" download>
+        {{ h.resume }}
+        <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+    <a class="badge" href="#projetos">
+      <span class="badge-icon" aria-hidden="true">★</span>
+      <span class="badge-copy">
+        <span class="badge-kicker">{{ h.badgeKicker }}</span>
+        <span class="badge-text">{{ h.badgeText }} <span aria-hidden="true">↗</span></span>
+      </span>
+    </a>
+  </div>
+
+  <figure class="panel">
+    <div class="panel-top mono-label">
+      <span>{{ h.panelLabel }}</span>
+      <span aria-hidden="true">+</span>
+    </div>
+    <div class="frame">
+      <span class="orbit orbit-inner" aria-hidden="true"></span>
+      <span class="orbit orbit-outer" aria-hidden="true"></span>
+      <app-stellar-object variant="hero" />
+      <figcaption class="frame-name">{{ theme.remnantName() }}<span class="accent">.</span></figcaption>
+    </div>
+    <div class="panel-bottom mono-label">
+      <span>{{ theme.remnantHint() }}</span>
+      <span>23°33′ S / 46°38′ W</span>
+    </div>
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <defs>
+          <path id="hero-ring" [attr.d]="ringPath" />
+        </defs>
+        <text>
+          <textPath href="#hero-ring" textLength="230" lengthAdjust="spacing">{{ h.ring }}</textPath>
+        </text>
+      </svg>
+      <span class="ring-core">&lt;/&gt;</span>
+    </div>
+  </figure>
+
+  <div class="hero-foot">
+    <p class="mono-label">{{ h.footnote }}</p>
+    <a class="mono-label scroll" href="#sobre">{{ h.scroll }} <span aria-hidden="true">↓</span></a>
+  </div>
+</section>
+
+<div class="marquee">
+  <ul class="track">
+    @for (item of i18n.t().marquee; track item) {
+      <li>{{ item }}<span class="star" aria-hidden="true">✦</span></li>
+    }
+  </ul>
+  <ul class="track" aria-hidden="true">
+    @for (item of i18n.t().marquee; track item) {
+      <li>{{ item }}<span class="star">✦</span></li>
+    }
+  </ul>
+</div>

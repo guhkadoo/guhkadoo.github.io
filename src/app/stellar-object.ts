@@ -25,12 +25,6 @@ import { ThemeService } from './theme';
       >
         <canvas #canvas></canvas>
       </button>
-      @if (variant() === 'hero') {
-        <figcaption>
-          <span>{{ theme.remnantName() }}</span>
-          <span>{{ theme.remnantHint() }}</span>
-        </figcaption>
-      }
     </figure>
   `,
   styles: `
@@ -75,17 +69,6 @@ import { ThemeService } from './theme';
     .remnant:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 4px;
-    }
-
-    figcaption {
-      display: grid;
-      gap: 0.2rem;
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
     }
   `,
 })

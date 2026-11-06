@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Reveal } from './reveal';
 
 const WIDTH = 320;
@@ -48,8 +48,8 @@ function bifurcationPath(): string {
         <path class="points" [attr.d]="path" stroke="url(#chaos-ink)" />
       </svg>
       <figcaption>
-        <span>Mapa logístico</span>
-        <span>ordem → caos</span>
+        <span>{{ name() }}</span>
+        <span>{{ caption() }}</span>
       </figcaption>
     </figure>
   `,
@@ -108,6 +108,8 @@ function bifurcationPath(): string {
   `,
 })
 export class ChaosMap {
+  readonly name = input.required<string>();
+  readonly caption = input.required<string>();
   readonly viewBox = `0 0 ${WIDTH} ${HEIGHT}`;
   readonly axes = `M0 0V${HEIGHT}H${WIDTH}`;
   readonly path = bifurcationPath();

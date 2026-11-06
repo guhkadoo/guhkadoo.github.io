@@ -1,4 +1,5 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { LanguageService } from './i18n';
 
 export type ThemeMode = 'light' | 'dark';
 
@@ -11,16 +12,21 @@ export class ThemeService {
   readonly collapse = signal(0);
   readonly reducedMotion = signal(false);
 
+  private readonly i18n = inject(LanguageService);
+
   readonly isDark = computed(() => this.mode() === 'dark');
-  readonly remnantName = computed(() => (this.isDark() ? 'Buraco negro' : 'Anã branca'));
-  readonly remnantHint = computed(() =>
-    this.isDark() ? 'Clique para o remanescente' : 'Clique para colapsar',
-  );
-  readonly toggleLabel = computed(() =>
-    this.isDark()
-      ? 'Ativar modo claro: anã branca'
-      : 'Ativar modo escuro: buraco negro',
-  );
+  readonly remnantName = computed(() => {
+    const t = this.i18n.t().theme;
+    return this.isDark() ? t.blackHole : t.whiteDwarf;
+  });
+  readonly remnantHint = computed(() => {
+    const t = this.i18n.t().theme;
+    return this.isDark() ? t.reigniteHint : t.collapseHint;
+  });
+  readonly toggleLabel = computed(() => {
+    const t = this.i18n.t().theme;
+    return this.isDark() ? t.toLight : t.toDark;
+  });
 
   private frame = 0;
   private from = 0;
